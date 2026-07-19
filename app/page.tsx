@@ -1,65 +1,227 @@
-import Image from "next/image";
+import Link from "next/link";
+import {
+  ArrowLink,
+  PageCta,
+  SectionIntro,
+  StageFlow,
+} from "./_components/site";
+
+const focusAreas = [
+  {
+    number: "01",
+    eyebrow: "Health",
+    title: "Responsible hygiene",
+    copy: "Reliable sanitation products, clearer safety information and distribution models designed around the realities of African communities.",
+    link: "/products",
+  },
+  {
+    number: "02",
+    eyebrow: "Energy",
+    title: "Cleaner production",
+    copy: "Applied research into lower-carbon process heat, energy efficiency and technologies that can reduce dependence on fossil fuels.",
+    link: "/research",
+  },
+  {
+    number: "03",
+    eyebrow: "Environment",
+    title: "Circular systems",
+    copy: "Practical pathways for material recovery, safer chemical handling and less waste across local manufacturing value chains.",
+    link: "/impact",
+  },
+];
+
+const programmes = [
+  {
+    code: "R01",
+    status: "Concept validation",
+    title: "Clean process heat",
+    copy: "Assessing modular thermal and renewable-energy options for small production facilities that currently rely on diesel and petrol.",
+  },
+  {
+    code: "R02",
+    status: "Research design",
+    title: "Circular chemical systems",
+    copy: "Mapping water, packaging and material flows to identify recovery opportunities without compromising product quality or safety.",
+  },
+  {
+    code: "R03",
+    status: "Partner discovery",
+    title: "Community hygiene access",
+    copy: "Testing formats, education and last-mile partnerships that can make dependable hygiene products easier to use and access.",
+  },
+];
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+    <>
+      <main>
+        <section className="hero shell" id="top">
+          <div className="hero-copy">
+            <p className="eyebrow"><span /> Applied research · Nigeria</p>
+            <h1>Better chemistry for a <em>healthier Africa.</em></h1>
+            <p className="hero-lede">
+              Chemcider develops practical sanitation, clean-production and
+              circular-system solutions for the communities and industries that
+              move Africa forward.
+            </p>
+            <div className="button-row">
+              <Link className="button button-primary" href="/research">
+                Explore our research <span aria-hidden="true">↗</span>
+              </Link>
+              <Link className="button button-secondary" href="/partner">
+                Partner with Chemcider
+              </Link>
+            </div>
+            <div className="hero-note">
+              <span>Research-led</span>
+              <span>Safety-conscious</span>
+              <span>Built for West Africa</span>
+            </div>
+          </div>
+
+          <div className="hero-lab" aria-label="Chemcider impact system illustration">
+            <div className="lab-topline">
+              <span>CHEM / CLIMATE / CARE</span>
+              <span className="status-dot">ACTIVE MANDATE</span>
+            </div>
+            <div className="orbital-field" aria-hidden="true">
+              <div className="orbit orbit-one" />
+              <div className="orbit orbit-two" />
+              <div className="orbit orbit-three" />
+              <div className="core-mark"><small>C</small><strong>+</strong></div>
+              <span className="particle p1" />
+              <span className="particle p2" />
+              <span className="particle p3" />
+            </div>
+            <div className="lab-caption">
+              <div><strong>03</strong><span>research platforms</span></div>
+              <div><strong>NG</strong><span>home market</span></div>
+              <div><strong>WA</strong><span>regional ambition</span></div>
+            </div>
+          </div>
+        </section>
+
+        <section className="statement-section">
+          <div className="shell statement-grid">
+            <p className="section-label">Our proposition</p>
+            <div>
+              <h2>Chemistry, made accountable.</h2>
+              <p>
+                We connect commercial discipline with applied research: supplying
+                essential hygiene products today while developing the cleaner
+                technologies, partnerships and evidence Africa needs tomorrow.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section className="section shell">
+          <SectionIntro
+            label="Where we focus"
+            title="One company. Three connected outcomes."
+            copy="Our portfolio is deliberately focused where health, industry and the environment meet."
+          />
+          <div className="focus-grid">
+            {focusAreas.map((area) => (
+              <article className="focus-card" key={area.number}>
+                <div className="focus-meta"><span>{area.number}</span><span>{area.eyebrow}</span></div>
+                <h3>{area.title}</h3>
+                <p>{area.copy}</p>
+                <ArrowLink href={area.link}>Discover the work</ArrowLink>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="section process-section">
+          <div className="shell">
+            <SectionIntro
+              label="How we work"
+              title="From local problem to scalable system."
+              copy="Every Chemcider programme moves through a disciplined evidence path, with safety and measurable value built into each gate."
+              dark
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+            <StageFlow />
+          </div>
+        </section>
+
+        <section className="section shell product-preview">
+          <div className="product-copy">
+            <p className="section-label">Current product platform</p>
+            <h2>Hygiene essentials, supplied with greater responsibility.</h2>
+            <p>
+              Our methylated spirit and hydrogen peroxide product lines support
+              everyday hygiene and institutional supply. Product grade,
+              concentration and permitted use are always determined by the label
+              and applicable regulation.
+            </p>
+            <ArrowLink href="/products">View products and safety approach</ArrowLink>
+          </div>
+          <div className="product-stack">
+            <article className="product-card product-blue">
+              <div className="product-code">MS / 01</div>
+              <div>
+                <p>Chemcider essentials</p>
+                <h3>Methylated spirit</h3>
+                <span>Hygiene · Institutional supply</span>
+              </div>
+              <div className="bottle-shape" aria-hidden="true"><span>MS</span></div>
+            </article>
+            <article className="product-card product-mint">
+              <div className="product-code">HP / 02</div>
+              <div>
+                <p>Chemcider essentials</p>
+                <h3>Hydrogen peroxide</h3>
+                <span>Grade-specific · Controlled handling</span>
+              </div>
+              <div className="bottle-shape" aria-hidden="true"><span>H₂O₂</span></div>
+            </article>
+          </div>
+        </section>
+
+        <section className="section research-preview">
+          <div className="shell">
+            <SectionIntro
+              label="Research pipeline"
+              title="Programmes designed for partnership."
+              copy="We make the stage, hypothesis and next evidence requirement visible—so technical, community and funding partners know where they can add value."
+            />
+            <div className="programme-list">
+              {programmes.map((programme) => (
+                <article className="programme-row" key={programme.code}>
+                  <span className="programme-code">{programme.code}</span>
+                  <div><span className="status-chip">{programme.status}</span><h3>{programme.title}</h3></div>
+                  <p>{programme.copy}</p>
+                  <Link href="/research" aria-label={`Read about ${programme.title}`}>↗</Link>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="section shell impact-preview">
+          <div className="impact-panel">
+            <div>
+              <p className="section-label">2026–2029 ambition</p>
+              <h2>Measure what changes—not just what ships.</h2>
+              <p>
+                Our proposed impact framework tracks access, safety, avoided
+                fossil-fuel use, material recovery and livelihoods. Baselines will
+                be independently established before public results are reported.
+              </p>
+              <ArrowLink href="/impact">See the impact framework</ArrowLink>
+            </div>
+            <div className="target-grid">
+              <div><strong>03</strong><span>field pilots advanced</span></div>
+              <div><strong>05+</strong><span>technical and community partners</span></div>
+              <div><strong>50k</strong><span>people reached — target</span></div>
+              <div><strong>100%</strong><span>projects with defined safeguards</span></div>
+            </div>
+          </div>
+        </section>
+
+        <PageCta />
       </main>
-    </div>
+    </>
   );
 }

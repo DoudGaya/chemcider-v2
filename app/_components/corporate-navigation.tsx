@@ -53,7 +53,7 @@ function DesktopGroup({
 
 function MobileGroup({ group, onNavigate }: { group: NavigationGroup; onNavigate: () => void }) {
   return (
-    <Collapsible defaultOpen className="mobile-nav-group">
+    <Collapsible className="mobile-nav-group">
       <CollapsibleTrigger className="mobile-nav-group-trigger">
         <span>{group.label}</span><ChevronDown size={17} aria-hidden="true" />
       </CollapsibleTrigger>

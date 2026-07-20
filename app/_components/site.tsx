@@ -1,52 +1,23 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { getNavigation, getSiteSettings } from "../../sanity/lib/data";
+import { Brand } from "./brand";
+import { CorporateNavigation } from "./corporate-navigation";
 
-const navItems = [
-  { href: "/research", label: "Research" },
-  { href: "/products", label: "Products" },
-  { href: "/services", label: "Services" },
-  { href: "/impact", label: "Impact" },
-  { href: "/about", label: "About" },
-];
-
-export function Brand() {
-  return (
-    <Link className="brand" href="/" aria-label="Chemcider home">
-      <span className="brand-mark" aria-hidden="true">C<span>+</span></span>
-      <span className="brand-copy"><strong>CHEMCIDER</strong><small>Applied research &amp; sustainable systems</small></span>
-    </Link>
-  );
+export async function SiteHeader() {
+  const navigation = await getNavigation();
+  return <CorporateNavigation groups={navigation} />;
 }
 
-export function SiteHeader() {
-  return (
-    <header className="site-header">
-      <div className="shell header-inner">
-        <Brand />
-        <nav className="desktop-nav" aria-label="Primary navigation">
-          {navItems.map((item) => <Link href={item.href} key={item.href}>{item.label}</Link>)}
-        </nav>
-        <Link className="button button-small button-primary desktop-partner" href="/partner">Partner with us <span aria-hidden="true">↗</span></Link>
-        <details className="mobile-menu">
-          <summary aria-label="Open navigation"><span /><span /></summary>
-          <nav aria-label="Mobile navigation">
-            {navItems.map((item) => <Link href={item.href} key={item.href}>{item.label}</Link>)}
-            <Link href="/partner">Partner with us ↗</Link>
-          </nav>
-        </details>
-      </div>
-    </header>
-  );
-}
-
-export function SiteFooter() {
+export async function SiteFooter() {
+  const settings = await getSiteSettings();
   return (
     <footer className="site-footer">
       <div className="shell footer-grid">
         <div className="footer-brand">
           <Brand />
-          <p>Better chemistry. Healthier communities. Cleaner systems.</p>
-          <span>Nigeria · West Africa</span>
+          <p>{settings.tagline}</p>
+          <span>{settings.geography}</span>
         </div>
         <div>
           <h3>Explore</h3>
@@ -58,13 +29,15 @@ export function SiteFooter() {
         <div>
           <h3>Company</h3>
           <Link href="/about">About</Link>
+          <Link href="/company/ceo-message">CEO message</Link>
+          <Link href="/company/management-team">Leadership</Link>
           <Link href="/partner">Partnerships</Link>
           <Link href="/contact">Contact</Link>
         </div>
         <div className="footer-contact">
           <h3>Start a conversation</h3>
           <p>Research, distribution, pilot and funding partnerships are welcome.</p>
-          <a href="mailto:hello@chemcider.com">hello@chemcider.com ↗</a>
+          <a href={`mailto:${settings.email}`}>{settings.email} ↗</a>
         </div>
       </div>
       <div className="shell footer-base">
@@ -74,6 +47,8 @@ export function SiteFooter() {
     </footer>
   );
 }
+
+export { Brand } from "./brand";
 
 export function SectionIntro({ label, title, copy, dark = false }: { label: string; title: string; copy: string; dark?: boolean }) {
   return (
@@ -120,14 +95,15 @@ export function PageHero({ label, title, accent, copy, aside }: { label: string;
   );
 }
 
-export function PageCta() {
+export async function PageCta() {
+  const settings = await getSiteSettings();
   return (
     <section className="page-cta">
       <div className="shell page-cta-inner">
         <p>PARTNERSHIP / 2026</p>
-        <h2>Let&apos;s build what Africa needs next.</h2>
+        <h2>{settings.partnershipTitle}</h2>
         <div>
-          <p>Bring a research question, a deployment challenge or patient capital. We&apos;ll bring local context and a disciplined route to evidence.</p>
+          <p>{settings.partnershipText}</p>
           <Link className="button button-light" href="/partner">Start a partnership <span aria-hidden="true">↗</span></Link>
         </div>
       </div>

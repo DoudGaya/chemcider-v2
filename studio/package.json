@@ -1,0 +1,24 @@
+{
+  "name": "chemcider-sanity-studio",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "sanity dev",
+    "start": "sanity start",
+    "build": "sanity build",
+    "deploy": "sanity deploy",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@sanity/icons": "latest",
+    "@sanity/vision": "latest",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "sanity": "latest",
+    "styled-components": "^6.1.19"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.0",
+    "typescript": "^5.9.3"
+  }
+}

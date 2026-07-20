@@ -5,6 +5,7 @@ import {
   SectionIntro,
   StageFlow,
 } from "./_components/site";
+import { getProducts, getResearchProgrammes, getSiteSettings } from "../sanity/lib/data";
 
 const focusAreas = [
   {
@@ -30,40 +31,16 @@ const focusAreas = [
   },
 ];
 
-const programmes = [
-  {
-    code: "R01",
-    status: "Concept validation",
-    title: "Clean process heat",
-    copy: "Assessing modular thermal and renewable-energy options for small production facilities that currently rely on diesel and petrol.",
-  },
-  {
-    code: "R02",
-    status: "Research design",
-    title: "Circular chemical systems",
-    copy: "Mapping water, packaging and material flows to identify recovery opportunities without compromising product quality or safety.",
-  },
-  {
-    code: "R03",
-    status: "Partner discovery",
-    title: "Community hygiene access",
-    copy: "Testing formats, education and last-mile partnerships that can make dependable hygiene products easier to use and access.",
-  },
-];
-
-export default function Home() {
+export default async function Home() {
+  const [settings, programmes, products] = await Promise.all([getSiteSettings(), getResearchProgrammes(), getProducts()]);
   return (
     <>
       <main>
         <section className="hero shell" id="top">
           <div className="hero-copy">
-            <p className="eyebrow"><span />Applied research · Nigeria</p>
-            <h1>Better chemistry for a <em>healthier Africa.</em></h1>
-            <p className="hero-lede">
-              Chemcider develops practical sanitation, clean-production and
-              circular-system solutions for the communities and industries that
-              move Africa forward. 
-            </p>
+            <p className="eyebrow"><span />{settings.heroLabel}</p>
+            <h1>{settings.heroTitle} <em>{settings.heroAccent}</em></h1>
+            <p className="hero-lede">{settings.heroIntroduction}</p>
             <div className="button-row">
               <Link className="button button-primary" href="/research">
                 Explore our research <span aria-hidden="true">↗</span>
@@ -105,12 +82,8 @@ export default function Home() {
           <div className="shell statement-grid">
             <p className="section-label">Our proposition</p>
             <div>
-              <h2>Chemistry, made accountable.</h2>
-              <p>
-                We connect commercial discipline with applied research: supplying
-                essential hygiene products today while developing the cleaner
-                technologies, partnerships and evidence Africa needs tomorrow.
-              </p>
+              <h2>{settings.propositionTitle}</h2>
+              <p>{settings.propositionText}</p>
             </div>
           </div>
         </section>
@@ -158,24 +131,13 @@ export default function Home() {
             <ArrowLink href="/products">View products and safety approach</ArrowLink>
           </div>
           <div className="product-stack">
-            <article className="product-card product-blue">
-              <div className="product-code">MS / 01</div>
-              <div>
-                <p>Chemcider essentials</p>
-                <h3>Methylated spirit</h3>
-                <span>Hygiene · Institutional supply</span>
-              </div>
-              <div className="bottle-shape" aria-hidden="true"><span>MS</span></div>
-            </article>
-            <article className="product-card product-mint">
-              <div className="product-code">HP / 02</div>
-              <div>
-                <p>Chemcider essentials</p>
-                <h3>Hydrogen peroxide</h3>
-                <span>Grade-specific · Controlled handling</span>
-              </div>
-              <div className="bottle-shape" aria-hidden="true"><span>H₂O₂</span></div>
-            </article>
+            {products.slice(0, 2).map((product, index) => (
+              <article className={`product-card ${index === 0 ? "product-blue" : "product-mint"}`} key={product.slug}>
+                <div className="product-code">{product.code}</div>
+                <div><p>{product.category}</p><h3>{product.name}</h3><span>{product.channels}</span></div>
+                <div className="bottle-shape" aria-hidden="true"><span>{index === 0 ? "MS" : "H₂O₂"}</span></div>
+              </article>
+            ))}
           </div>
         </section>
 
@@ -191,7 +153,7 @@ export default function Home() {
                 <article className="programme-row" key={programme.code}>
                   <span className="programme-code">{programme.code}</span>
                   <div><span className="status-chip">{programme.status}</span><h3>{programme.title}</h3></div>
-                  <p>{programme.copy}</p>
+                  <p>{programme.summary}</p>
                   <Link href="/research" aria-label={`Read about ${programme.title}`}>↗</Link>
                 </article>
               ))}

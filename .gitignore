@@ -2,6 +2,7 @@
 
 # dependencies
 /node_modules
+**/node_modules/
 /.pnp
 .pnp.*
 .yarn/*
@@ -20,6 +21,8 @@
 # production
 /build
 /dist/
+/studio/dist/
+/studio/.sanity/
 /.wrangler/
 !/build/
 !/build/sites-vite-plugin.ts
@@ -38,6 +41,8 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
+!studio/.env.example
 
 # vercel
 .vercel

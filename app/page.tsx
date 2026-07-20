@@ -57,12 +57,12 @@ export default function Home() {
       <main>
         <section className="hero shell" id="top">
           <div className="hero-copy">
-            <p className="eyebrow"><span /> Applied research · Nigeria</p>
+            <p className="eyebrow"><span />Applied research · Nigeria</p>
             <h1>Better chemistry for a <em>healthier Africa.</em></h1>
             <p className="hero-lede">
               Chemcider develops practical sanitation, clean-production and
               circular-system solutions for the communities and industries that
-              move Africa forward.
+              move Africa forward. 
             </p>
             <div className="button-row">
               <Link className="button button-primary" href="/research">

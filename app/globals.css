@@ -43,7 +43,7 @@ button, input, textarea, select { font: inherit; }
 .desktop-nav-group { position: relative; }
 .desktop-nav-trigger { display: inline-flex; align-items: center; gap: 6px; padding: 12px 0; color: #284d5b; background: transparent; border: 0; font-size: 13px; font-weight: 650; cursor: pointer; }
 .desktop-nav-trigger svg { transition: transform .2s; }.desktop-nav-trigger[data-state="open"] svg { transform: rotate(180deg); }
-.desktop-nav-popover { position: absolute; top: calc(100% + 17px); left: 50%; z-index: 70; width: 340px; transform: translateX(-50%); }
+.desktop-nav-popover { position: absolute; top: 100%; left: 50%; z-index: 70; width: 340px; padding-top: 17px; transform: translateX(-50%); }
 .desktop-nav-popover-inner { padding: 14px; background: rgba(248,252,252,.96); border: 1px solid rgba(166,203,210,.75); border-radius: 8px; box-shadow: 0 22px 60px rgba(3,28,44,.18); backdrop-filter: blur(24px) saturate(130%); }
 .desktop-nav-popover-inner > p { margin: 3px 8px 12px; color: var(--blue); font-family: var(--font-geist-mono), monospace; font-size: 9px; text-transform: uppercase; letter-spacing: .12em; }
 .desktop-nav-popover .nav-destination { display: flex; justify-content: space-between; align-items: center; padding: 11px 10px; border-radius: 4px; color: var(--ink); }

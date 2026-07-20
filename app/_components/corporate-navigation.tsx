@@ -19,9 +19,22 @@ function SmartLink({ item, onNavigate }: { item: NavigationItem; onNavigate?: ()
   return <Link className={className} href={item.href} onClick={onNavigate}>{item.label}<span aria-hidden="true">↗</span></Link>;
 }
 
-function DesktopGroup({ group }: { group: NavigationGroup }) {
+function DesktopGroup({
+  group,
+  open,
+  onOpenChange,
+}: {
+  group: NavigationGroup;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+}) {
   return (
-    <Collapsible className="desktop-nav-group">
+    <Collapsible
+      className="desktop-nav-group"
+      open={open}
+      onOpenChange={onOpenChange}
+      onMouseLeave={() => onOpenChange(false)}
+    >
       <CollapsibleTrigger className="desktop-nav-trigger">
         {group.label}<ChevronDown size={14} aria-hidden="true" />
       </CollapsibleTrigger>
@@ -29,7 +42,7 @@ function DesktopGroup({ group }: { group: NavigationGroup }) {
         <div className="desktop-nav-popover-inner">
           <p>{group.label}</p>
           {group.items.map((item) => (
-            <SmartLink item={item} key={`${group.label}-${item.href}`} />
+            <SmartLink item={item} key={`${group.label}-${item.href}`} onNavigate={() => onOpenChange(false)} />
           ))}
         </div>
       </CollapsibleContent>
@@ -64,7 +77,30 @@ function MobileGroup({ group, onNavigate }: { group: NavigationGroup; onNavigate
 
 export function CorporateNavigation({ groups }: { groups: NavigationGroup[] }) {
   const [open, setOpen] = useState(false);
+  const [openDesktopGroup, setOpenDesktopGroup] = useState<string | null>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
+  const desktopNavRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    if (!openDesktopGroup) return;
+
+    const closeDesktopMenu = (event: Event) => {
+      if (desktopNavRef.current?.contains(event.target as Node)) return;
+      setOpenDesktopGroup(null);
+    };
+    const handleKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpenDesktopGroup(null);
+    };
+
+    document.addEventListener("pointerdown", closeDesktopMenu);
+    document.addEventListener("focusin", closeDesktopMenu);
+    window.addEventListener("keydown", handleKey);
+    return () => {
+      document.removeEventListener("pointerdown", closeDesktopMenu);
+      document.removeEventListener("focusin", closeDesktopMenu);
+      window.removeEventListener("keydown", handleKey);
+    };
+  }, [openDesktopGroup]);
 
   useEffect(() => {
     if (!open) return;
@@ -86,8 +122,15 @@ export function CorporateNavigation({ groups }: { groups: NavigationGroup[] }) {
       <header className="site-header">
         <div className="shell header-inner">
           <Brand />
-          <nav className="desktop-nav" aria-label="Primary navigation">
-            {groups.map((group) => <DesktopGroup group={group} key={group.label} />)}
+          <nav ref={desktopNavRef} className="desktop-nav" aria-label="Primary navigation">
+            {groups.map((group) => (
+              <DesktopGroup
+                group={group}
+                key={group.label}
+                open={openDesktopGroup === group.label}
+                onOpenChange={(isOpen) => setOpenDesktopGroup(isOpen ? group.label : null)}
+              />
+            ))}
           </nav>
           <Link className="button button-small button-primary desktop-partner" href="/partner">Partner with us <span aria-hidden="true">↗</span></Link>
           <button className="mobile-nav-trigger" type="button" onClick={() => setOpen(true)} aria-expanded={open} aria-controls="mobile-navigation">

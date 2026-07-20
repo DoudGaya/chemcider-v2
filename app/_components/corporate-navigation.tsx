@@ -33,6 +33,7 @@ function DesktopGroup({
       className="desktop-nav-group"
       open={open}
       onOpenChange={onOpenChange}
+      onMouseEnter={() => onOpenChange(true)}
       onMouseLeave={() => onOpenChange(false)}
     >
       <CollapsibleTrigger className="desktop-nav-trigger">

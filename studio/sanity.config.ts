@@ -8,7 +8,7 @@ const projectId = process.env.SANITY_STUDIO_PROJECT_ID;
 const dataset = process.env.SANITY_STUDIO_DATASET ?? "production";
 
 if (!projectId) {
-  throw new Error("Missing SANITY_STUDIO_PROJECT_ID. Copy studio/.env.example to studio/.env (or studio/.env.local) and add the project ID.");
+  throw new Error("Missing SANITY_STUDIO_PROJECT_ID. Please ensure environment variables are synced.");
 }
 
 export default defineConfig({

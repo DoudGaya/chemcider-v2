@@ -3,9 +3,12 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "predev": "node ../scripts/sync-env.js",
     "dev": "sanity dev",
     "start": "sanity start",
+    "prebuild": "node ../scripts/sync-env.js",
     "build": "sanity build",
+    "predeploy": "node ../scripts/sync-env.js",
     "deploy": "sanity deploy",
     "typecheck": "tsc --noEmit"
   },

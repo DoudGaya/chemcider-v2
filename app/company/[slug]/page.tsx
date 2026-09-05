@@ -6,6 +6,7 @@ import { buildMetadata } from "../../../sanity/lib/metadata";
 import { Breadcrumbs, RoleCard } from "../../_components/content";
 import { PageCta, PageHero, SectionIntro } from "../../_components/site";
 
+
 const slugs = ["about", "ceo-message", "operational-team", "management-team", "standing-committee", "advisory-board"];
 
 export function generateStaticParams() {
